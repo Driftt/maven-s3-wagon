@@ -35,7 +35,7 @@
   <url>http://${kuali.site.hostname}/maven/wagons/${project.artifactId}/${project.version}/</url>
   <properties>
     <project.scm.vendor>git</project.scm.vendor>
-    <project.java.version>1.5</project.java.version>
+    <project.java.version>1.7</project.java.version>
     <slf4j.version>1.7.5</slf4j.version>
     <aws.version>1.11.46</aws.version>
     <spring.version>3.2.5.RELEASE</spring.version>

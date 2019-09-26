@@ -36,10 +36,11 @@ public final class MavenAwsCredentialsProviderChain extends AWSCredentialsProvid
 	private static AWSCredentialsProvider[] getProviders(Optional<AuthenticationInfo> auth) {
 		List<AWSCredentialsProvider> providers = new ArrayList<AWSCredentialsProvider>();
 
-		// Try settings.xml first.
-		providers.add(new AuthenticationInfoCredentialsProvider(auth));
-		// Then fall through to AWS's credential chain (See javadoc for details).
+		// We want to get AWS credentials from the default path if able,
+		// And fall back to the local settings.xml otherwise
+		// (See DefaultAWSCredentialsProviderChain javadoc for details)
 		providers.add(new DefaultAWSCredentialsProviderChain());
+		providers.add(new AuthenticationInfoCredentialsProvider(auth));
 
 		return providers.toArray(new AWSCredentialsProvider[providers.size()]);
 	}

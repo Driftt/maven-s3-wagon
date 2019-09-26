@@ -43,11 +43,7 @@ public final class MavenAwsCredentialsProviderChain extends AWSCredentialsProvid
 		// We want to get AWS credentials from the default providers if able,
 		// And fall back to the local settings.xml otherwise
 		// (See DefaultAWSCredentialsProviderChain javadoc for details)
-		providers.add(new EnvironmentVariableCredentialsProvider());
-		providers.add(new SystemPropertiesCredentialsProvider());
-		providers.add(new ProfileCredentialsProvider());
-		providers.add(new EC2ContainerCredentialsProviderWrapper());
-		// providers.add(new DefaultAWSCredentialsProviderChain());
+		providers.add(new DefaultAWSCredentialsProviderChain());
 		providers.add(new AuthenticationInfoCredentialsProvider(auth));
 
 		return providers.toArray(new AWSCredentialsProvider[providers.size()]);

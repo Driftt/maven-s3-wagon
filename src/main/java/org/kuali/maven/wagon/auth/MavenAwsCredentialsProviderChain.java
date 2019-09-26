@@ -18,6 +18,10 @@ package org.kuali.maven.wagon.auth;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
+import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.google.common.base.Optional;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
 
@@ -36,10 +40,14 @@ public final class MavenAwsCredentialsProviderChain extends AWSCredentialsProvid
 	private static AWSCredentialsProvider[] getProviders(Optional<AuthenticationInfo> auth) {
 		List<AWSCredentialsProvider> providers = new ArrayList<AWSCredentialsProvider>();
 
-		// We want to get AWS credentials from the default path if able,
+		// We want to get AWS credentials from the default providers if able,
 		// And fall back to the local settings.xml otherwise
 		// (See DefaultAWSCredentialsProviderChain javadoc for details)
-		providers.add(new DefaultAWSCredentialsProviderChain());
+		providers.add(new EnvironmentVariableCredentialsProvider());
+		providers.add(new SystemPropertiesCredentialsProvider());
+		providers.add(new ProfileCredentialsProvider());
+		providers.add(new EC2ContainerCredentialsProviderWrapper());
+		// providers.add(new DefaultAWSCredentialsProviderChain());
 		providers.add(new AuthenticationInfoCredentialsProvider(auth));
 
 		return providers.toArray(new AWSCredentialsProvider[providers.size()]);

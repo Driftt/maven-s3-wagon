@@ -41,7 +41,7 @@
     <jackson.version>2.18.7</jackson.version>
     <spring.version>3.2.5.RELEASE</spring.version>
     <kuali-s3.version>1.0.1</kuali-s3.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.13.1</junit.version>
     <guava.version>15.0</guava.version>
   </properties>
   <profiles>
